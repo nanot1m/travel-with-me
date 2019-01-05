@@ -1,19 +1,19 @@
-import React, { Component } from "react";
-import { StoreProvider } from "./StoreProvider";
-import { RootStore } from "./stores/RootStore";
-
 import "./App.css";
+import React, { Component } from "react";
+import { Switch, Route } from "react-router-dom";
 
-const store = RootStore.create();
+import { IndexScreen } from "./screens/IndexScreen";
+import { AddTripScreen } from "./screens/AddTripScreen";
 
 class App extends Component {
   render() {
     return (
-      <StoreProvider value={store}>
-        <div className="App">
-          <h1>Hello, world!</h1>
-        </div>
-      </StoreProvider>
+      <div className="App">
+        <Switch>
+          <Route exact path="/" component={IndexScreen} />
+          <Route path="/add-trip" component={AddTripScreen} />
+        </Switch>
+      </div>
     );
   }
 }

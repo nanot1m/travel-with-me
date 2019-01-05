@@ -18,4 +18,11 @@ export const RootStore = t
       addTrip,
       deleteTrip
     };
+  })
+  .views(self => {
+    return {
+      get tripList() {
+        return [...self.trips.values()];
+      }
+    };
   });
