@@ -4,10 +4,17 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { StoreProvider } from "./StoreProvider";
-import { RootStore } from "./stores/RootStore";
 import { BrowserRouter } from "react-router-dom";
+import { createStore } from "./stores/createStore";
+import { Auth } from "./lib/Auth";
+import { firebaseInstance } from "./firebase/firebaseInstance";
 
-const store = RootStore.create();
+const store = createStore(
+  {},
+  {
+    auth: new Auth(firebaseInstance.auth())
+  }
+);
 
 ReactDOM.render(
   <StoreProvider value={store}>
