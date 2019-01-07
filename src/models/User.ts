@@ -26,11 +26,11 @@ export const User = t
 
     return {
       afterCreate,
-      signInByEmailAndPassword: auth.signInByEmailAndPassword,
-      registerByEmailAndPassword: auth.registerByEmailAndPassword,
-      resetPassword: auth.resetPassword,
-      signInByGoogle: auth.signInByGoogle,
-      signOut: auth.signOut,
+      signInByEmailAndPassword: auth.signInByEmailAndPassword.bind(auth),
+      registerByEmailAndPassword: auth.registerByEmailAndPassword.bind(auth),
+      resetPassword: auth.resetPassword.bind(auth),
+      signInByGoogle: auth.signInByGoogle.bind(auth),
+      signOut: auth.signOut.bind(auth),
       setUser
     };
   });
