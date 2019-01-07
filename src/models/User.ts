@@ -1,5 +1,6 @@
 import { types as t } from "mobx-state-tree";
 import { getAppEnv } from "../stores/getAppEnv";
+import { User as FbUser } from "firebase";
 
 export const User = t
   .model("User", {
@@ -9,7 +10,7 @@ export const User = t
   .actions(self => {
     const { auth } = getAppEnv(self);
 
-    function setUser(user: firebase.User | null) {
+    function setUser(user: FbUser | null) {
       if (user) {
         self.authenticated = true;
         self.login = user.displayName || user.email || user.uid;
