@@ -9,7 +9,9 @@ export const IndexScreen = withStore(({ store }) => (
     <h1>Your trip list</h1>
     <ul>
       {store.tripList.map(trip => (
-        <li key={trip.id}>{trip.name}</li>
+        <li key={trip.id}>
+          <NavLink to={`/trip/${trip.id}`}>{trip.name}</NavLink>
+        </li>
       ))}
       {store.tripList.length === 0 && (
         <li>
