@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, withRouter, RouteComponentProps } from "react-router-dom";
+import { NavLink, RouteComponentProps } from "react-router-dom";
 
 import { StoreConsumer } from "../StoreProvider";
 
@@ -8,7 +8,7 @@ type TripPointScreenProps = RouteComponentProps<{
   pointId: string;
 }>;
 
-const TripPointScreenBase = function(props: TripPointScreenProps) {
+export function TripPointScreen(props: TripPointScreenProps) {
   const { tripId, pointId } = props.match.params;
   return (
     <StoreConsumer>
@@ -46,6 +46,4 @@ const TripPointScreenBase = function(props: TripPointScreenProps) {
       }}
     </StoreConsumer>
   );
-};
-const TripPointScreen = withRouter(TripPointScreenBase);
-export { TripPointScreen };
+}

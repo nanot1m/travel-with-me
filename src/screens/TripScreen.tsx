@@ -1,13 +1,12 @@
 import React from "react";
-import { NavLink, withRouter, RouteComponentProps } from "react-router-dom";
+import { NavLink, RouteComponentProps } from "react-router-dom";
 
 import { StoreConsumer } from "../StoreProvider";
 
 type TripScreenProps = RouteComponentProps<{ tripId: string }>;
 
-const TripScreenBase = function(props: TripScreenProps) {
+export function TripScreen(props: TripScreenProps) {
   const { tripId } = props.match.params;
-  const { history } = props;
   return (
     <StoreConsumer>
       {store => {
@@ -28,27 +27,22 @@ const TripScreenBase = function(props: TripScreenProps) {
             </div>
             <div>
               <h1>{trip.name}</h1>
-              {trip.points.map(p => (
-                <button
-                  key={p.id}
-                  onClick={() => history.push(`/trip/${trip.id}/point/${p.id}`)}
-                >
-                  {p.name}
-                </button>
-              ))}
+              <ul>
+                {trip.points.map(p => (
+                  <li>
+                    <NavLink key={p.id} to={`/trip/${trip.id}/point/${p.id}`}>
+                      {p.name}
+                    </NavLink>
+                  </li>
+                ))}
+              </ul>
             </div>
             <div>
-              <button
-                onClick={() => history.push(`/trip/${trip.id}/add-point`)}
-              >
-                Add Point
-              </button>
+              <NavLink to={`/trip/${trip.id}/add-point`}>Add Point</NavLink>
             </div>
           </div>
         );
       }}
     </StoreConsumer>
   );
-};
-const TripScreen = withRouter(TripScreenBase);
-export { TripScreen };
+}

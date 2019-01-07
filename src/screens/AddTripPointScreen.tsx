@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, withRouter, RouteComponentProps } from "react-router-dom";
+import { NavLink, RouteComponentProps } from "react-router-dom";
 import {
   ErrorMessage,
   Field,
@@ -34,7 +34,7 @@ function validate(fields: AddTripPointFormValues) {
   return errors;
 }
 
-const AddTripPointScreenBase = function(props: AddTripPointScreenProps) {
+export function AddTripPointScreen(props: AddTripPointScreenProps) {
   const { tripId } = props.match.params;
   return (
     <StoreConsumer>
@@ -94,6 +94,4 @@ const AddTripPointScreenBase = function(props: AddTripPointScreenProps) {
       }}
     </StoreConsumer>
   );
-};
-const AddTripPointScreen = withRouter(AddTripPointScreenBase);
-export { AddTripPointScreen };
+}
