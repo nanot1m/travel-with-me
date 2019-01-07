@@ -3,7 +3,9 @@ import { RootStore } from "./stores/RootStore";
 import { Omit } from "react-router";
 import { observer } from "mobx-react";
 
-const { Consumer, Provider } = React.createContext(RootStore.create());
+const { Consumer, Provider } = React.createContext<
+  typeof RootStore.Type | null
+>(null);
 
 export { Consumer as StoreConsumer, Provider as StoreProvider };
 
@@ -17,7 +19,7 @@ export function withStore<OriginalProps extends WithStoreProps>(
   const Component = observer(component);
   return props => (
     <Consumer>
-      {store => <Component store={store} {...props as any} />}
+      {store => store && <Component store={store} {...props as any} />}
     </Consumer>
   );
 }

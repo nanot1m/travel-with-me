@@ -7,14 +7,13 @@ import { StoreProvider } from "./StoreProvider";
 import { BrowserRouter } from "react-router-dom";
 import { createStore } from "./stores/createStore";
 import { Auth } from "./lib/Auth";
-import { firebaseInstance } from "./firebase/firebaseInstance";
+import { firebaseInstance, db } from "./firebase/firebaseInstance";
+import { TripRepository } from "./repositories/TripRepository";
 
-const store = createStore(
-  {},
-  {
-    auth: new Auth(firebaseInstance.auth())
-  }
-);
+const store = createStore(undefined, {
+  auth: new Auth(firebaseInstance.auth()),
+  tripRepository: new TripRepository(db)
+});
 
 ReactDOM.render(
   <StoreProvider value={store}>

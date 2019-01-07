@@ -1,5 +1,6 @@
 import firebase from "firebase";
 import "firebase/auth";
+import "firebase/firestore";
 
 const firebaseInstance = firebase.initializeApp({
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -10,4 +11,11 @@ const firebaseInstance = firebase.initializeApp({
   messagingSenderId: "1080274551546"
 });
 
-export { firebaseInstance };
+var db = firebaseInstance.firestore();
+
+// Disable deprecated features
+db.settings({
+  timestampsInSnapshots: true
+});
+
+export { firebaseInstance, db };
