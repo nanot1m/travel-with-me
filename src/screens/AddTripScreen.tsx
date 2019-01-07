@@ -10,7 +10,7 @@ import {
 } from "formik";
 import uuid from "uuid";
 
-import { StoreConsumer } from "../StoreProvider";
+import { StoreConsumer, withStore } from "../StoreProvider";
 
 interface AddTripFormValues {
   name: string;
@@ -30,47 +30,41 @@ function validate(fields: AddTripFormValues) {
   return errors;
 }
 
-export function AddTripScreen() {
-  return (
-    <StoreConsumer>
-      {store => {
-        function handleSubmit(
-          values: AddTripFormValues,
-          actions: FormikActions<AddTripFormValues>
-        ) {
-          store.addTrip(uuid.v4(), values.name);
-          actions.resetForm();
-        }
+export const AddTripScreen = withStore(({ store }) => {
+  function handleSubmit(
+    values: AddTripFormValues,
+    actions: FormikActions<AddTripFormValues>
+  ) {
+    store.addTrip(uuid.v4(), values.name);
+    actions.resetForm();
+  }
 
-        return (
+  return (
+    <div>
+      <div>
+        <NavLink to="/">Back</NavLink>
+      </div>
+      <h1>Add Trip</h1>
+      <Formik<AddTripFormValues>
+        initialValues={initialValues}
+        validate={validate}
+        onSubmit={handleSubmit}
+      >
+        <Form>
           <div>
-            <div>
-              <NavLink to="/">Back</NavLink>
-            </div>
-            <h1>Add Trip</h1>
-            <Formik<AddTripFormValues>
-              initialValues={initialValues}
-              validate={validate}
-              onSubmit={handleSubmit}
-            >
-              <Form>
-                <div>
-                  <Field
-                    name="name"
-                    render={({ field }: FieldProps<AddTripFormValues>) => (
-                      <input type="text" {...field} placeholder="Trip Name" />
-                    )}
-                  />
-                  <ErrorMessage name="name" />
-                </div>
-                <div>
-                  <button type="submit">Add</button>
-                </div>
-              </Form>
-            </Formik>
+            <Field
+              name="name"
+              render={({ field }: FieldProps<AddTripFormValues>) => (
+                <input type="text" {...field} placeholder="Trip Name" />
+              )}
+            />
+            <ErrorMessage name="name" />
           </div>
-        );
-      }}
-    </StoreConsumer>
+          <div>
+            <button type="submit">Add</button>
+          </div>
+        </Form>
+      </Formik>
+    </div>
   );
-}
+});
