@@ -8,11 +8,13 @@ import { BrowserRouter } from "react-router-dom";
 import { createStore } from "./stores/createStore";
 import { Auth } from "./lib/Auth";
 import { firebaseInstance } from "./firebase/firebaseInstance";
+import { Storage } from "./lib/Storage";
 
 const store = createStore(
   {},
   {
-    auth: new Auth(firebaseInstance.auth())
+    auth: new Auth(firebaseInstance.auth()),
+    storage: new Storage(firebaseInstance.firestore())
   }
 );
 

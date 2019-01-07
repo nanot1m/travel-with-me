@@ -39,6 +39,7 @@ export function AddTripPointScreen(props: AddTripPointScreenProps) {
   return (
     <StoreConsumer>
       {store => {
+        store.fetchTripPoints(10);
         const trip = store.trips.get(tripId);
         function handleSubmit(
           values: AddTripPointFormValues,
@@ -89,6 +90,16 @@ export function AddTripPointScreen(props: AddTripPointScreenProps) {
                 </div>
               </Form>
             </Formik>
+            <div>
+              <h2>Choose existing point</h2>
+              <ul>
+                {store.tripPointsList.map(p => (
+                  <li>
+                    <button key={p.id}>{p.name}</button>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         );
       }}
