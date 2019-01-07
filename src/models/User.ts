@@ -9,26 +9,6 @@ export const User = t
   .actions(self => {
     const { auth } = getAppEnv(self);
 
-    function signInByEmailAndPassword(email: string, password: string) {
-      return auth.signInByEmailAndPassword(email, password);
-    }
-
-    function registerByEmailAndPassword(email: string, password: string) {
-      return auth.registerByEmailAndPassword(email, password);
-    }
-
-    function resetPassword(email: string) {
-      return auth.resetPassword(email);
-    }
-
-    function signInByGoogle() {
-      return auth.signInByGoogle();
-    }
-
-    function signOut() {
-      return auth.signOut();
-    }
-
     function setUser(user: firebase.User | null) {
       if (user) {
         self.authenticated = true;
@@ -45,11 +25,11 @@ export const User = t
 
     return {
       afterCreate,
-      signInByEmailAndPassword,
-      registerByEmailAndPassword,
-      resetPassword,
-      signInByGoogle,
-      signOut,
+      signInByEmailAndPassword: auth.signInByEmailAndPassword,
+      registerByEmailAndPassword: auth.registerByEmailAndPassword,
+      resetPassword: auth.resetPassword,
+      signInByGoogle: auth.signInByGoogle,
+      signOut: auth.signOut,
       setUser
     };
   });
